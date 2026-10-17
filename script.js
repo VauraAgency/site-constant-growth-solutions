@@ -39,8 +39,57 @@ if (form) {
   });
 }
 
+/* ---------- services dropdown (tap to open) ---------- */
+const dd = document.querySelector('.dropdown');
+const ddBtn = dd.querySelector('.dropdown-btn');
+const closeDropdown = () => {
+  dd.classList.remove('open');
+  ddBtn.setAttribute('aria-expanded', 'false');
+};
+ddBtn.addEventListener('click', () => {
+  const open = dd.classList.toggle('open');
+  ddBtn.setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('click', (e) => {
+  if (!dd.contains(e.target)) closeDropdown();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDropdown();
+});
+
+/* ---------- mobile swipe carousels (dots) ---------- */
+document.querySelectorAll('.strip-inner, .cards.three, .flow').forEach((track) => {
+  const items = Array.from(track.children);
+  if (items.length < 2) return;
+
+  const dots = document.createElement('div');
+  dots.className = 'dots';
+  dots.setAttribute('aria-hidden', 'true');
+  items.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.tabIndex = -1;
+    b.addEventListener('click', () => {
+      track.scrollTo({ left: items[i].offsetLeft - items[0].offsetLeft, behavior: 'smooth' });
+    });
+    dots.appendChild(b);
+  });
+  track.insertAdjacentElement('afterend', dots);
+
+  const setActive = () => {
+    const step = items[1].offsetLeft - items[0].offsetLeft;
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    const idx = atEnd ? items.length - 1 : Math.round(track.scrollLeft / step);
+    Array.from(dots.children).forEach((d, i) => d.classList.toggle('on', i === idx));
+  };
+  track.addEventListener('scroll', () => requestAnimationFrame(setActive), { passive: true });
+  window.addEventListener('resize', setActive);
+  setActive();
+});
+
 nav.addEventListener('click', (e) => {
   if (e.target.closest('a')) {
+    closeDropdown();
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   }
@@ -50,7 +99,7 @@ nav.addEventListener('click', (e) => {
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const revealTargets = document.querySelectorAll(
-  '.section-head, .card, .flow li, .logos li, .chips, .team figure, .split-media, .split-text, .contact-info, .form'
+  '.section-head, .cards, .flow, .logos li, .chips, .split-media, .split-text, .contact-info, .form'
 );
 revealTargets.forEach((el, i) => {
   el.classList.add('reveal');

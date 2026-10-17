@@ -146,6 +146,21 @@ p{margin:0 0 1em}
   .hero-bg,.hero-glow,.section-bg{transform:none!important}
 }
 
+/* nav CTA keeps its button look */
+.nav a.btn{background:var(--gold);border:2px solid var(--gold);padding:9px 22px;border-radius:999px;color:var(--navy)}
+.nav a.btn:hover{background:var(--gold-dark);border-color:var(--gold-dark);color:#fff}
+
+/* dropdown (click to open) + carousel dots */
+.dropdown.open .dropdown-menu{display:block}
+.dropdown-btn span{display:inline-block;transition:transform .2s}
+.dropdown.open .dropdown-btn span{transform:rotate(180deg)}
+.dots{display:none;justify-content:center;gap:8px;margin-top:14px}
+.dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#c9c2b2;cursor:pointer;transition:.2s}
+.dots button.on{background:var(--gold-dark);width:22px;border-radius:999px}
+.strip .dots{margin:0;padding-bottom:18px}
+.strip .dots button{background:rgba(255,255,255,.3)}
+.strip .dots button.on{background:var(--gold)}
+
 /* responsive */
 @media (max-width:980px){
   .cards.three,.flow{grid-template-columns:1fr 1fr}
@@ -159,9 +174,19 @@ p{margin:0 0 1em}
   .nav{position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:0;padding:12px 20px 20px;display:none}
   .nav.open{display:flex}
   .nav>a,.dropdown{width:100%;padding:10px 0;border-bottom:1px solid var(--line)}
-  .nav .btn{margin-top:14px;border-bottom:0}
-  .dropdown-menu{position:static;display:block;border:0;box-shadow:none;padding:4px 0 0 12px}
-  .strip-inner,.cards.three,.flow{grid-template-columns:1fr}
+  .nav a.btn{margin-top:14px;width:auto;border:2px solid var(--gold)}
+  .dropdown-btn{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left}
+  .dropdown-menu{position:static;display:none;border:0;box-shadow:none;padding:4px 0 0 12px}
+  .dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+
+  .strip-inner,.cards.three,.flow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+  .strip-inner::-webkit-scrollbar,.cards.three::-webkit-scrollbar,.flow::-webkit-scrollbar{display:none}
+  .strip-inner>div,.cards.three>.card,.flow>li{flex:0 0 84%;scroll-snap-align:start}
+  .strip-inner>div{flex-basis:78%;padding:0 6px}
+  .cards.three{padding:4px 2px 8px}
+  .flow{padding-bottom:4px}
+  .dots{display:flex}
   .row{grid-template-columns:1fr}
   .hero-cta .btn{width:100%;text-align:center}
 }
