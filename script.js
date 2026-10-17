@@ -13,6 +13,16 @@ if (form) {
   const status = form.querySelector('.form-status');
   const btn = form.querySelector('button[type="submit"]');
 
+  const mailtoHref = () => {
+    const f = new FormData(form);
+    const name = [f.get('first_name'), f.get('last_name')].filter(Boolean).join(' ');
+    const body = 'Name: ' + name + '\nEmail: ' + (f.get('email') || '') +
+      '\nPhone: ' + (f.get('phone') || '') + '\n\n' + (f.get('message') || '');
+    return 'mailto:' + form.dataset.mailto + '?subject=' +
+      encodeURIComponent('New inquiry from constantgrowthsolutions.com') +
+      '&body=' + encodeURIComponent(body);
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true;
@@ -25,13 +35,18 @@ if (form) {
         body: new FormData(form)
       });
       const data = await res.json();
-      if (!res.ok || String(data.success) !== 'true') throw new Error('failed');
+      if (!res.ok || data.success !== true) throw new Error('failed');
       form.reset();
       status.className = 'form-status ok';
       status.textContent = 'Thanks! Your message was sent. We will be in touch soon.';
     } catch (err) {
       status.className = 'form-status err';
-      status.textContent = 'Something went wrong. Please email info@constantgrowthsolutions.com directly.';
+      status.textContent = 'We could not send that just now. ';
+      const a = document.createElement('a');
+      a.href = mailtoHref();
+      a.textContent = 'Send it by email instead';
+      status.appendChild(a);
+      status.appendChild(document.createTextNode(' (your message is filled in) or write to ' + form.dataset.mailto + '.'));
     }
     status.hidden = false;
     btn.disabled = false;
