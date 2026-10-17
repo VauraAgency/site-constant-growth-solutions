@@ -146,6 +146,10 @@ p{margin:0 0 1em}
   .hero-bg,.hero-glow,.section-bg{transform:none!important}
 }
 
+/* logo */
+.brand-logo{height:54px;width:auto;display:block}
+.footer-logo{height:68px;width:auto;align-self:flex-start;margin-bottom:10px}
+
 /* nav CTA keeps its button look */
 .nav a.btn{background:var(--gold);border:2px solid var(--gold);padding:9px 22px;border-radius:999px;color:var(--navy)}
 .nav a.btn:hover{background:var(--gold-dark);border-color:var(--gold-dark);color:#fff}
