@@ -288,3 +288,20 @@ p{margin:0 0 1em}
 .logos li.tall{padding:10px}
 .logos li.tall img{max-height:108px}
 @media (max-width:760px){.logos li.tall img{max-height:84px}}
+
+/* meet the team slider */
+.team-media{max-width:440px;width:100%;justify-self:center;text-align:center}
+.team-title{font-size:clamp(1.5rem,2.6vw,1.9rem);margin-bottom:.7em}
+.ts-viewport{display:grid;overflow:hidden;border-radius:var(--radius);background:#fff;box-shadow:0 20px 40px rgba(15,39,66,.16);touch-action:pan-y;cursor:grab}
+.ts-slide{grid-area:1/1;margin:0;opacity:0;visibility:hidden;transform:translateX(14%);transition:opacity .7s ease,transform .7s ease,visibility 0s linear .7s}
+.ts-slide.is-active{opacity:1;visibility:visible;transform:none;transition:opacity .7s ease,transform .7s ease}
+.ts-slide.is-leaving{opacity:0;visibility:visible;transform:translateX(-14%)}
+.ts-photo{position:relative;aspect-ratio:4/5;background:linear-gradient(145deg,var(--navy-2),var(--navy));display:grid;place-items:center;color:var(--gold);font-family:"Playfair Display",serif;font-size:3rem}
+.ts-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;-webkit-user-drag:none;user-select:none}
+.ts-slide figcaption{padding:16px 12px 20px;background:#fff}
+.ts-slide figcaption strong{display:block;font-family:"Playfair Display",serif;font-size:1.25rem;color:var(--navy)}
+.ts-slide figcaption span{font-size:.92rem;color:var(--gold-dark);font-weight:500}
+.ts-dots{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.ts-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#c9c2b2;cursor:pointer;transition:.2s}
+.ts-dots button.on{background:var(--gold-dark);width:22px;border-radius:999px}
+@media (prefers-reduced-motion:reduce){.ts-slide,.ts-slide.is-active,.ts-slide.is-leaving{transform:none;transition:opacity .3s}}

@@ -135,7 +135,7 @@ nav.addEventListener('click', (e) => {
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const revealTargets = document.querySelectorAll(
-  '.section-head, .cards, .flow, .logos li, .chips, .split-media, .split-text, .contact-info, .form, .info-cards, .map-wrap'
+  '.section-head, .cards, .flow, .logos li, .chips, .split-media, .team-media, .split-text, .contact-info, .form, .info-cards, .map-wrap'
 );
 revealTargets.forEach((el, i) => {
   el.classList.add('reveal');
@@ -197,3 +197,60 @@ if (!reduce && hero) {
   window.addEventListener('resize', update);
   update();
 }
+
+
+/* ---------- meet the team slider ---------- */
+(function () {
+  const root = document.querySelector('.team-media');
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll('.ts-slide'));
+  const viewport = root.querySelector('.ts-viewport');
+  const dotsWrap = root.querySelector('.ts-dots');
+  let cur = 0, timer = null, paused = false;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const dots = slides.map((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Show ' + s.querySelector('strong').textContent);
+    b.addEventListener('click', () => { go(i); restart(); });
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function go(n) {
+    n = (n + slides.length) % slides.length;
+    if (n === cur) return;
+    const prev = slides[cur];
+    prev.classList.remove('is-active');
+    prev.classList.add('is-leaving');
+    prev.setAttribute('aria-hidden', 'true');
+    setTimeout(() => prev.classList.remove('is-leaving'), 720);
+    slides[n].classList.add('is-active');
+    slides[n].setAttribute('aria-hidden', 'false');
+    cur = n;
+    dots.forEach((d, i) => d.classList.toggle('on', i === n));
+  }
+  function restart() {
+    clearInterval(timer);
+    if (!reduceMotion) timer = setInterval(() => { if (!paused) go(cur + 1); }, 4500);
+  }
+  dots[0].classList.add('on');
+  restart();
+
+  root.addEventListener('mouseenter', () => { paused = true; });
+  root.addEventListener('mouseleave', () => { paused = false; });
+
+  let x0 = null;
+  viewport.addEventListener('pointerdown', (e) => { x0 = e.clientX; paused = true; });
+  const end = (e) => {
+    if (x0 !== null) {
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 40) { go(cur + (dx < 0 ? 1 : -1)); restart(); }
+    }
+    x0 = null; paused = false;
+  };
+  viewport.addEventListener('pointerup', end);
+  viewport.addEventListener('pointercancel', () => { x0 = null; paused = false; });
+  slides.forEach((s) => s.querySelectorAll('img').forEach((im) => im.addEventListener('dragstart', (e) => e.preventDefault())));
+})();
