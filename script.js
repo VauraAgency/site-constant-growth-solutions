@@ -233,7 +233,7 @@ if (!reduce && hero) {
   }
   function restart() {
     clearInterval(timer);
-    if (!reduceMotion) timer = setInterval(() => { if (!paused) go(cur + 1); }, 4500);
+    if (!reduceMotion) timer = setInterval(() => { if (!paused) go(cur + 1); }, 2500);
   }
   dots[0].classList.add('on');
   restart();
