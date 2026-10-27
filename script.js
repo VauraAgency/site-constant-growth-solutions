@@ -8,19 +8,21 @@ toggle.addEventListener('click', () => {
   toggle.setAttribute('aria-expanded', String(open));
 });
 
-const form = document.getElementById('contact-form');
-if (form) {
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   const status = form.querySelector('.form-status');
   const btn = form.querySelector('button[type="submit"]');
+  const btnLabel = btn.textContent;
+  const skip = ['access_key', 'subject', 'from_name', 'botcheck'];
 
   const mailtoHref = () => {
-    const f = new FormData(form);
-    const name = [f.get('first_name'), f.get('last_name')].filter(Boolean).join(' ');
-    const body = 'Name: ' + name + '\nEmail: ' + (f.get('email') || '') +
-      '\nPhone: ' + (f.get('phone') || '') + '\n\n' + (f.get('message') || '');
+    const lines = [];
+    new FormData(form).forEach((v, k) => {
+      if (skip.includes(k) || !String(v).trim()) return;
+      lines.push(k.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase()) + ': ' + v);
+    });
     return 'mailto:' + form.dataset.mailto + '?subject=' +
-      encodeURIComponent('New inquiry from constantgrowthsolutions.com') +
-      '&body=' + encodeURIComponent(body);
+      encodeURIComponent(form.querySelector('[name="subject"]').value) +
+      '&body=' + encodeURIComponent(lines.join('\n'));
   };
 
   form.addEventListener('submit', async (e) => {
@@ -46,13 +48,13 @@ if (form) {
       a.href = mailtoHref();
       a.textContent = 'Send it by email instead';
       status.appendChild(a);
-      status.appendChild(document.createTextNode(' (your message is filled in) or write to ' + form.dataset.mailto + '.'));
+      status.appendChild(document.createTextNode(' (your answers are filled in) or write to ' + form.dataset.mailto + '.'));
     }
     status.hidden = false;
     btn.disabled = false;
-    btn.textContent = 'Submit';
+    btn.textContent = btnLabel;
   });
-}
+});
 
 /* ---------- services dropdown (tap to open) ---------- */
 const dd = document.querySelector('.dropdown');
@@ -73,7 +75,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ---------- mobile swipe carousels (dots) ---------- */
-document.querySelectorAll('.strip-inner, .cards.three, .flow').forEach((track) => {
+document.querySelectorAll('.strip-inner, .cards.three, .flow, .info-cards').forEach((track) => {
   const items = Array.from(track.children);
   if (items.length < 2) return;
 
@@ -133,7 +135,7 @@ nav.addEventListener('click', (e) => {
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const revealTargets = document.querySelectorAll(
-  '.section-head, .cards, .flow, .logos li, .chips, .split-media, .split-text, .contact-info, .form'
+  '.section-head, .cards, .flow, .logos li, .chips, .split-media, .split-text, .contact-info, .form, .info-cards, .map-wrap'
 );
 revealTargets.forEach((el, i) => {
   el.classList.add('reveal');
@@ -155,8 +157,8 @@ if (reduce || !('IntersectionObserver' in window)) {
 }
 
 /* ---------- parallax ---------- */
-if (!reduce) {
-  const hero = document.getElementById('hero');
+const hero = document.getElementById('hero');
+if (!reduce && hero) {
   const layers = hero.querySelectorAll('[data-parallax]');
   const heroContent = hero.querySelector('[data-parallax-content]');
   const sectionBgs = document.querySelectorAll('[data-parallax-section]');
