@@ -100,6 +100,25 @@ document.querySelectorAll('.strip-inner, .cards.three, .flow').forEach((track) =
   track.addEventListener('scroll', () => requestAnimationFrame(setActive), { passive: true });
   window.addEventListener('resize', setActive);
   setActive();
+
+  /* auto-rotate the stat strip every 3s (pauses while touched) */
+  if (track.classList.contains('strip-inner') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let paused = false, timer;
+    const step = () => items[1].offsetLeft - items[0].offsetLeft;
+    const tick = () => {
+      if (paused || track.scrollWidth <= track.clientWidth + 4) return;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + step(), behavior: 'smooth' });
+    };
+    const start = () => { clearInterval(timer); timer = setInterval(tick, 3000); };
+    const hold = () => { paused = true; };
+    const release = () => { paused = false; start(); };
+    track.addEventListener('touchstart', hold, { passive: true });
+    track.addEventListener('touchend', () => setTimeout(release, 1500), { passive: true });
+    track.addEventListener('pointerdown', hold);
+    track.addEventListener('pointerup', () => setTimeout(release, 1500));
+    start();
+  }
 });
 
 nav.addEventListener('click', (e) => {

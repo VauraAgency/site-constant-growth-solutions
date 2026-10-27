@@ -187,7 +187,8 @@ p{margin:0 0 1em}
   .strip-inner,.cards.three,.flow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
   .strip-inner::-webkit-scrollbar,.cards.three::-webkit-scrollbar,.flow::-webkit-scrollbar{display:none}
   .strip-inner>div,.cards.three>.card,.flow>li{flex:0 0 84%;scroll-snap-align:start}
-  .strip-inner>div{flex-basis:78%;padding:0 6px}
+  .strip-inner{gap:0}
+  .strip-inner>div{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;padding:0 6px;text-align:center}
   .cards.three{padding:4px 2px 8px}
   .flow{padding-bottom:4px}
   .dots{display:flex}
