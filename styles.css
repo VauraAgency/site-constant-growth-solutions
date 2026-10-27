@@ -207,7 +207,7 @@ p{margin:0 0 1em}
 .page-hero{min-height:clamp(300px,42vh,420px);padding:clamp(70px,9vw,110px) 0}
 .page-hero .lead{max-width:600px}
 .form-narrow{max-width:780px}
-.info-section{padding-bottom:0}
+.info-section{padding:clamp(50px,7vw,90px) 0}
 .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .info-card{text-align:center;padding:34px 26px}
 .info-card a{color:var(--navy);font-weight:600;word-break:break-word}
