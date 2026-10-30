@@ -305,3 +305,8 @@ p{margin:0 0 1em}
 .ts-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#c9c2b2;cursor:pointer;transition:.2s}
 .ts-dots button.on{background:var(--gold-dark);width:22px;border-radius:999px}
 @media (prefers-reduced-motion:reduce){.ts-slide,.ts-slide.is-active,.ts-slide.is-leaving{transform:none;transition:opacity .3s}}
+
+/* partner logos: centered rows */
+.logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.logos li{flex:0 0 calc(25% - 12px)}
+@media (max-width:980px){.logos li{flex-basis:calc(50% - 8px)}}
