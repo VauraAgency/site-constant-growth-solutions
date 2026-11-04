@@ -56,22 +56,26 @@ document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   });
 });
 
-/* ---------- services dropdown (tap to open) ---------- */
-const dd = document.querySelector('.dropdown');
-const ddBtn = dd.querySelector('.dropdown-btn');
-const closeDropdown = () => {
-  dd.classList.remove('open');
-  ddBtn.setAttribute('aria-expanded', 'false');
-};
-ddBtn.addEventListener('click', () => {
-  const open = dd.classList.toggle('open');
-  ddBtn.setAttribute('aria-expanded', String(open));
+/* ---------- dropdowns (tap to open) ---------- */
+const dds = Array.from(document.querySelectorAll('.dropdown'));
+const closeDropdowns = (except) => dds.forEach((d) => {
+  if (d === except) return;
+  d.classList.remove('open');
+  d.querySelector('.dropdown-btn').setAttribute('aria-expanded', 'false');
+});
+dds.forEach((d) => {
+  const btn = d.querySelector('.dropdown-btn');
+  btn.addEventListener('click', () => {
+    closeDropdowns(d);
+    const open = d.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
 });
 document.addEventListener('click', (e) => {
-  if (!dd.contains(e.target)) closeDropdown();
+  if (!e.target.closest('.dropdown')) closeDropdowns();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeDropdown();
+  if (e.key === 'Escape') closeDropdowns();
 });
 
 /* ---------- mobile swipe carousels (dots) ---------- */

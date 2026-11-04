@@ -310,3 +310,34 @@ p{margin:0 0 1em}
 .logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
 .logos li{flex:0 0 calc(25% - 12px)}
 @media (max-width:980px){.logos li{flex-basis:calc(50% - 8px)}}
+
+/* ---------- insurance policies mega menu ---------- */
+.mega-menu{min-width:560px;left:50%;transform:translateX(-50%);display:none;grid-template-columns:1fr 1fr;gap:6px 18px;padding:14px}
+.dropdown:hover .mega-menu,.dropdown:focus-within .mega-menu,.dropdown.open .mega-menu{display:grid}
+.mega-col h4{margin:4px 14px 6px;font-family:'Playfair Display',serif;font-size:1.02rem;color:var(--gold-dark,#a9863f)}
+.mega-col a{font-size:.93rem;padding:7px 14px}
+@media (max-width:980px){
+  .mega-menu{position:static;transform:none;min-width:0;display:none;grid-template-columns:1fr;padding:4px 0 0 12px;border:0;box-shadow:none}
+  .dropdown:hover .mega-menu,.dropdown:focus-within .mega-menu{display:none}
+  .dropdown.open .mega-menu{display:grid}
+}
+/* policy pages */
+.narrow{max-width:900px}
+.policy-intro{font-size:1.12rem;line-height:1.7;text-align:center;max-width:720px;margin:0 auto 2.2rem}
+.policy-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:1.8rem}
+.policy-card h3{margin-top:0}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{position:relative;padding:8px 0 8px 26px;border-bottom:1px solid var(--line)}
+.checks li:last-child{border-bottom:0}
+.checks li::before{content:"";position:absolute;left:2px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.linkchips a{color:inherit}
+.linkchips li:hover{background:var(--gold);color:#fff}
+.policy-links{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.policy-links a{display:block;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;transition:.25s;height:100%}
+.policy-links a:hover{border-color:var(--gold);transform:translateY(-2px)}
+.policy-links strong{display:block;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy)}
+.policy-links span{display:block;margin-top:4px;font-size:.92rem;color:var(--muted,#5b6b7d)}
+@media (max-width:760px){
+  .policy-cols,.policy-links{grid-template-columns:1fr}
+}
+.chips a,.linkchips a{text-decoration:none}
