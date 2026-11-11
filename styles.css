@@ -369,3 +369,8 @@ p{margin:0 0 1em}
 @media (min-width:900px){.vb__in{max-width:980px}.vb__h{white-space:nowrap}}
 @media (max-width:760px){.vb{border-radius:22px;min-height:440px}.vb__in{padding:28px 18px}.vb__svg{filter:none}}
 @media (prefers-reduced-motion:reduce){.vb__rib,.vb__stars circle,.vb__logo{animation:none!important}.vb__beam{animation:none!important;opacity:.55;stroke-dashoffset:-300}}
+
+/* tighter Find Us + VAURA panel spacing */
+.map-section{padding:clamp(34px,5vw,60px) 0 clamp(26px,3.5vw,44px)}
+.map-section .section-head{margin-bottom:clamp(18px,2.5vw,28px)}
+.vb-section{padding-top:0}
