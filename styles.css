@@ -341,3 +341,31 @@ p{margin:0 0 1em}
   .policy-cols,.policy-links{grid-template-columns:1fr}
 }
 .chips a,.linkchips a{text-decoration:none}
+
+/* ---------- VAURA beams (built by VAURA promo) ---------- */
+.vb-section{padding:clamp(24px,4vw,48px) 0 clamp(56px,7vw,96px);background:#fff}
+.vb{position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(120% 90% at 50% 40%,#173a5e 0%,#0f2742 55%,#08182b 100%);border:1px solid rgba(200,164,92,.35);border-radius:28px;width:min(1160px,calc(100% - 40px));margin:0 auto;min-height:clamp(500px,50vw,620px);display:grid;place-items:center;color:#fff}
+.vb__svg{position:absolute;inset:0;width:100%;height:100%;z-index:-2;filter:drop-shadow(0 0 5px rgba(200,164,92,.35))}
+.vb__shade{position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 55% at 50% 50%,rgba(8,24,43,.8),rgba(8,24,43,.35) 60%,transparent 100%);pointer-events:none}
+.vb__in{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:56px 24px;max-width:640px}
+.vb__logo{width:clamp(150px,20vw,230px);height:auto;filter:drop-shadow(0 0 22px rgba(200,164,92,.45)) drop-shadow(0 0 4px rgba(255,255,255,.35));animation:vb-glow 5s ease-in-out infinite alternate}
+.vb__k{color:var(--gold);margin:6px 0 0;text-transform:uppercase;letter-spacing:.22em;font-size:.78rem;font-weight:600}
+.vb__h{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(28px,4.4vw,46px);line-height:1.14;letter-spacing:-.01em;margin:0;color:#fff}
+.vb__h em{font-style:italic;background:linear-gradient(90deg,#c8a45c,#f0dca8);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
+.vb__chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:4px 0 10px;padding:0;list-style:none}
+.vb__chips li{padding:7px 14px;border-radius:999px;border:1px solid rgba(200,164,92,.4);background:rgba(200,164,92,.1);font-size:.82rem;color:#f4f1ea;backdrop-filter:blur(4px)}
+.vb__stars circle{fill:#f4e8c8;opacity:.5;animation:vb-tw 4.5s ease-in-out infinite}
+.vb__rib{transform-box:fill-box;transform-origin:center;will-change:transform}
+.vb-d1{animation:vb-d1 15s ease-in-out infinite alternate}
+.vb-d2{animation:vb-d2 19s ease-in-out infinite alternate}
+.vb-d3{animation:vb-d3 17s ease-in-out infinite alternate}
+.vb__beam{stroke-dasharray:70 930;stroke-dashoffset:70;opacity:0;animation-name:vb-run;animation-timing-function:cubic-bezier(.45,.05,.35,1);animation-iteration-count:infinite;filter:drop-shadow(0 0 7px #c8a45c) drop-shadow(0 0 14px rgba(200,164,92,.7))}
+@keyframes vb-run{0%{stroke-dashoffset:70;opacity:0}8%{opacity:1}78%{opacity:1}100%{stroke-dashoffset:-1000;opacity:0}}
+@keyframes vb-d1{from{transform:translate3d(-14px,-10px,0) scaleY(1)}to{transform:translate3d(18px,12px,0) scaleY(1.07)}}
+@keyframes vb-d2{from{transform:translate3d(16px,8px,0) scaleY(1.04)}to{transform:translate3d(-16px,-12px,0) scaleY(.95)}}
+@keyframes vb-d3{from{transform:translate3d(-10px,12px,0) scaleY(.96)}to{transform:translate3d(14px,-8px,0) scaleY(1.06)}}
+@keyframes vb-tw{0%,100%{opacity:.15}50%{opacity:.7}}
+@keyframes vb-glow{from{filter:drop-shadow(0 0 14px rgba(200,164,92,.3)) drop-shadow(0 0 3px rgba(255,255,255,.3))}to{filter:drop-shadow(0 0 30px rgba(200,164,92,.6)) drop-shadow(0 0 5px rgba(255,255,255,.4))}}
+@media (min-width:900px){.vb__in{max-width:980px}.vb__h{white-space:nowrap}}
+@media (max-width:760px){.vb{border-radius:22px;min-height:540px}.vb__in{padding:44px 18px}.vb__svg{filter:none}}
+@media (prefers-reduced-motion:reduce){.vb__rib,.vb__stars circle,.vb__logo{animation:none!important}.vb__beam{animation:none!important;opacity:.55;stroke-dashoffset:-300}}
