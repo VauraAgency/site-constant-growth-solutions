@@ -382,3 +382,18 @@ p{margin:0 0 1em}
 .cv-foot{display:inline-flex;align-items:center;gap:12px;margin-top:20px;color:#aebdce;font-size:.8rem;text-decoration:none}
 .cv-foot img{width:150px;height:auto;background:#fff;border-radius:8px;padding:6px 10px;display:block}
 .footer a.cv-foot{color:#aebdce}
+
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px}
+.review{margin:0;background:var(--navy,#0f2742);color:#fff;border-radius:14px;padding:30px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(15,39,66,.14)}
+.review .rq{width:34px;height:26px;color:#c8a45c;flex:none}
+.review blockquote{margin:0;font-size:1rem;line-height:1.65;color:#fff}
+.review figcaption{margin-top:auto;font-size:.9rem;letter-spacing:.04em;color:#c8a45c}
+.rv-more{margin-top:28px}
+@media (max-width:900px){
+  .reviews{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:4px 2px 8px}
+  .reviews::-webkit-scrollbar{display:none}
+  .reviews>.review{flex:0 0 88%;scroll-snap-align:center;scroll-snap-stop:always}
+  .dots{display:flex}
+}
+@media (min-width:901px){.reviews.wide{grid-template-columns:repeat(2,1fr)}}

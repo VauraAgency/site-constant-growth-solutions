@@ -79,7 +79,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ---------- mobile swipe carousels (dots) ---------- */
-document.querySelectorAll('.strip-inner, .cards.three, .flow, .info-cards').forEach((track) => {
+document.querySelectorAll('.strip-inner, .cards.three, .flow, .info-cards, .reviews').forEach((track) => {
   const items = Array.from(track.children);
   if (items.length < 2) return;
 
