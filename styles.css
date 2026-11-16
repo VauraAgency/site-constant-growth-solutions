@@ -397,3 +397,10 @@ p{margin:0 0 1em}
   .dots{display:flex}
 }
 @media (min-width:901px){.reviews.wide{grid-template-columns:repeat(2,1fr)}}
+
+/* rotating reviews (home) */
+.review{transition:opacity .55s ease,transform .55s ease}
+.review.rv-out{opacity:0;transform:translateX(-26px)}
+.review.rv-pre{opacity:0;transform:translateX(26px);transition:none}
+@media (min-width:901px){.reviews[data-rv]>.review:nth-child(n+4){display:none}}
+@media (prefers-reduced-motion:reduce){.review{transition:none}}

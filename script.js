@@ -258,3 +258,56 @@ if (!reduce && hero) {
   viewport.addEventListener('pointercancel', () => { x0 = null; paused = false; });
   slides.forEach((s) => s.querySelectorAll('img').forEach((im) => im.addEventListener('dragstart', (e) => e.preventDefault())));
 })();
+
+
+/* ---------- rotating reviews: cards fade out right to left, new ones fade in ---------- */
+(() => {
+  const box = document.querySelector('.reviews[data-rv]');
+  if (!box || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const tpl = document.getElementById('rv-all');
+  const mq = window.matchMedia('(min-width: 901px)');
+  mq.addEventListener('change', () => location.reload());
+  const read = (el) => ({ q: el.querySelector('blockquote').textContent, n: el.querySelector('figcaption').textContent });
+  const data = Array.from(box.children).map(read)
+    .concat(tpl ? Array.from(tpl.content.children).map(read) : []);
+  let paused = false;
+
+  if (mq.matches) {
+    const slots = Array.from(box.children).slice(0, 3);
+    let page = 0;
+    const swap = (slot, item) => {
+      slot.querySelector('blockquote').textContent = item.q;
+      slot.querySelector('figcaption').textContent = item.n;
+    };
+    box.addEventListener('mouseenter', () => { paused = true; });
+    box.addEventListener('mouseleave', () => { paused = false; });
+    setInterval(() => {
+      if (paused || document.hidden) return;
+      page = (page + 1) % Math.ceil(data.length / 3);
+      [2, 1, 0].forEach((k, order) => {
+        setTimeout(() => {
+          const slot = slots[k];
+          slot.classList.add('rv-out');
+          setTimeout(() => {
+            swap(slot, data[(page * 3 + k) % data.length]);
+            slot.classList.remove('rv-out');
+            slot.classList.add('rv-pre');
+            void slot.offsetWidth;
+            slot.classList.remove('rv-pre');
+          }, 560);
+        }, order * 220);
+      });
+    }, 6500);
+  } else {
+    /* phones: auto-advance the swipe carousel right to left, pause while touched */
+    const items = Array.from(box.children);
+    const step = () => items[1].offsetLeft - items[0].offsetLeft;
+    box.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+    box.addEventListener('touchend', () => setTimeout(() => { paused = false; }, 2500), { passive: true });
+    setInterval(() => {
+      if (paused || document.hidden || items.length < 2) return;
+      const atEnd = box.scrollLeft + box.clientWidth >= box.scrollWidth - 4;
+      box.scrollTo({ left: atEnd ? 0 : box.scrollLeft + step(), behavior: 'smooth' });
+    }, 5000);
+  }
+})();
